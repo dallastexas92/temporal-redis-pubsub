@@ -1,10 +1,10 @@
 # Temporal Streaming with Redis PubSub
 
-A solution for real-time streaming output from Temporal workflows using Redis PubSub. This addresses the limitation that Temporal doesn't natively support streaming responses.
+A solution for real-time streaming output from Temporal workflows using Redis PubSub. This addresses the limitation that Temporal doesn't natively support streaming responses from an LLM.
 
 ## Overview
 
-This project demonstrates how to implement real-time streaming from Temporal workflows by using Redis PubSub as a communication channel. This demonstration focuses specifically on streaming text output to the CLI.
+This project demonstrates how to implement real-time streaming from Temporal workflows by using Redis PubSub as a communication channel. This demonstration focuses specifically on streaming LLM output back to the user via CLI, while also persisting results to the Temporal Activity.
 
 ## How It Works
 
@@ -15,6 +15,8 @@ This project demonstrates how to implement real-time streaming from Temporal wor
 
 ## Requirements
 
+- anthropic
+- python-dotenv
 - UV package manager (for dependency management)
 - Python 3.10+
 - Redis server
@@ -45,15 +47,15 @@ redis-server # Validate it's running in another terminal by running 'redi-cli pi
 temporal server start-dev # Open the Temporal UI on localhost:8233
 ```
 
-3. Run the code from the original virtual environment:
+3. Start the Worker from the original virtual environment:
 ```bash
-python redis_stream_llm.py
+python worker.py
 ```
 
-## Project Structure
-
-- `redis_stream_llm.py`: Main application file containing the Temporal workflow, activity, and Redis PubSub implementation
-- `pyproject.toml`: Project configuration file
+4. Start the Workflow from a new terminal with the virtual environment
+```bash
+python starter.py
+```
 
 ## Contributing
 
